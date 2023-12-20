@@ -1,0 +1,258 @@
+﻿@model AwesomeNetwork.ViewModels.Account.UserViewModel; 
+
+<link href="~/css/mypage.css" />
+<div class="container">
+    <div class="row">
+        <div class="container col-md-4 col-sm-12">           
+            <h4 class="center">@Model.User.GetFullName()</h4>
+            <div class="row">
+                <div class="main">
+                    <img class="main-img" src="@Model.User.Image" />
+                    <div class="center-align">
+                        <form method="get" asp-controller="AccountManager" asp-action="Edit">
+                            <input class="enter_submit" type="submit" value="Редагувати" />
+                        </form>
+                    </div>
+                <div class="lined-block">
+                    <label class="gray-text">Список друзів</label>
+                    <div>
+                        @if (Model.Friends.Count != 0)
+                        {
+                            @foreach (var user in @Model.Friends)
+                            {
+                                <div class="datadiv">
+                                    <div class="mrgn center-align">
+                                        <img src="@user.Image" class="ava" />
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        @user.GetFullName()
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        <form asp-controller="AccountManager" asp-action="Chat" asp-route-id="@user.Id" method="post">
+                                            <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                                Чат
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        <form asp-controller="AccountManager" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
+                                            <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                                Відписатись
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            <span>
+                                <form asp-controller="AccountManager" asp-action="UserFriends" method="post">
+                                    <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                        Всі друзі...
+                                    </button>
+                                </form>
+                            </span>
+
+                        }
+                        else
+                        {
+                            <div>
+                                <label> У вас немає друзів.</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="container col-md-8 col-sm-12">
+                <div class="side">
+                    <div class="lined-block">
+                        <div>
+                            <label class="gray-text">Статус:</label>
+                            <label> @Model.User.Status</label>
+                        </div>
+
+                        <div>
+                            <label class="gray-text">Дата народження:</label>
+                            <label> @Model.User.BirthDate.ToLongDateString()</label>
+                        </div>
+
+                        <div>
+                            <label class="gray-text">Про себе:</label>
+                            <label> @Model.User.About</label>
+                        </div>
+
+                        <div>
+                            <label class="gray-text">Email:</label>
+                            <label> @Model.User.Email</label>
+                        </div>
+
+                    </div>
+                    <div class="lined-block ">
+                        <label class="gray-text">Пости користувача</label>
+                        <div class="friendbox">
+                                @if (Model.Posts.Count > 0)
+                                {
+                                    @foreach (var post in Model.Posts)
+                            {
+                                <div class="container-fluid content-row">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-lg-6">
+                                            <div class="card h-100">
+                                                <div class="card-header">
+                                                    @post.CreationDate.ToLongDateString();
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title card-post-text">@post.Title</h5>
+                                                    <p class="card-text card-post-text">@post.Description</p>
+                                                    <a href="#" class="btn btn-primary">Читати детально</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                      /*<div class="card col-sm-12">
+                                      <div class="card-header">
+                                        @post.CreationDate.ToLongDateString();
+                                      </div>
+                                      <div class="card-body">
+                                        <h5 class="card-title card-post-text">@post.Title</h5>
+                                        <p class="card-text card-post-text">@post.Description</p>
+                                        <a href="#" class="btn btn-primary">Читати детально</a>
+                                      </div>
+                                    </div>*/
+                                    }
+                                }
+                        </div>
+                    </div>
+            </div>
+    </div>
+    </div>
+@*
+<div class="block-reg background-white">
+
+    <h4 class="center">@Model.User.GetFullName()</h4>
+
+    <div class="row">
+
+        <div class="main">
+            <img class="main-img" src="@Model.User.Image" />
+            <div class="center-align">
+                <form method="get" asp-controller="AccountManager" asp-action="Edit">
+                    <input class="enter_submit" type="submit" value="Редагувати" />
+                </form>
+            </div>
+            <div class="lined-block">
+                <div class="lined-block">
+                    <label class="gray-text">Список друзів</label>
+
+                    <div>
+                        @if (Model.Friends.Count != 0)
+                        {
+                            @foreach (var user in @Model.Friends)
+                            {
+                                <div class="datadiv">
+                                    <div class="mrgn center-align">
+                                        <img src="@user.Image" class="ava" />
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        @user.GetFullName()
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        <form asp-controller="AccountManager" asp-action="Chat" asp-route-id="@user.Id" method="post">
+                                            <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                                Чат
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="mrgn center-align">
+                                        <form asp-controller="AccountManager" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
+                                            <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                                Відписатись
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            <span>
+                                <form asp-controller="AccountManager" asp-action="UserFriends" method="post">
+                                    <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                        Всі друзі...
+                                    </button>
+                                </form>
+                            </span>
+
+                        }
+                        else
+                        {
+                            <div>
+                                <label> У вас немає друзів.</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="side">
+            <div class="lined-block">
+                <div>
+                    <label class="gray-text">Статус:</label>
+                    <label> @Model.User.Status</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">Дата народження:</label>
+                    <label> @Model.User.BirthDate.ToLongDateString()</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">Про себе:</label>
+                    <label> @Model.User.About</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">Email:</label>
+                    <label> @Model.User.Email</label>
+                </div>
+                
+            </div>
+            <div class="lined-block friendcontainer">
+                <label class="gray-text">Пости користувача</label>
+                <div class="friendbox">
+                    <div class="row">
+                        @if (Model.Posts.Count > 0)
+                        {
+                            @foreach (var post in Model.Posts)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6 mx-auto">
+                                        <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
+                                            <div class="blockquote-custom-icon bg-info shadow-sm"><i class="fa fa-quote-left text-white"></i></div>
+                                            <p class="mb-0 mt-2 font-italic">@post.Description</p>
+                                            <footer class="blockquote-footer pt-4 mt-4 border-top">
+                                                @post.CreationDate
+                                                <cite title="Source Title">@post.Title</cite>
+                                            </footer>
+                                        </blockquote>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+    </div>
+    *@
+    <div class="container">
+        <div class="row">
+            <form method="post" asp-controller="AccountManager" asp-action="AddPost">
+            <input type="text" placeholder="Заголовок" name="PostTitle"/>
+            <input type="text" placeholder="Новина" name="PostDescription" />
+            <button type="submit">Опублікувати</button>
+        </form>
+        </div>
+    </div>

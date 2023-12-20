@@ -1,0 +1,55 @@
+﻿@model AwesomeNetwork.ViewModels.Account.ChatViewModel;
+
+    <meta http-equiv="refresh" content="25">
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <div class="block-reg background-white">
+        <div>
+            <form method="get" asp-controller="AccountManager" asp-action="MyPage">
+                <input class="enter_submit" type="submit" value="Назад" />
+            </form>
+        </div>
+
+        <h4 class="center">Чат @Model.You.FirstName и  @Model.ToWhom.FirstName</h4>
+
+        <div class="lined-block">
+            <label class="gray-text">Повідомлення</label>
+        <a asp-controller="Accountmanager" asp-action="Chat" asp-route-id="@Model.ToWhom.Id"><img height="25" width="25" src="~/Images/Default/refresh.jpg" /></a>
+            @if (Model.History.Count != 0)
+            {
+
+                @foreach (var message in @Model.History)
+                {
+                    <div>
+                        <label> @message.Sender.FirstName:</label>
+                        @message.Text
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <label> Повідомлень немає  @Model.ToWhom.GetFullName().</label>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="lined-block">
+            <label class="gray-text">Нове повідомлення</label>
+
+            <form class="frm" method="post" asp-controller="AccountManager" asp-action="NewMessage"  asp-route-id="@Model.ToWhom.Id">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div>
+                    <div class="mrgn">
+                        <input asp-for="NewMessage.Text" class="form-control emojify" type="text"/>
+                    </div>
+                    <div class="center">
+                        <input class="btn_submit" type="submit" value="Надіслати" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

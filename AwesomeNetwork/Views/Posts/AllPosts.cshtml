@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AwesomeNetwork.Models.Users.Post>
+
+@{
+    ViewData["Title"] = "Всі пости";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+         <form class="row col-sm-12" asp-controller="Posts" asp-action="AllPosts" method="get">
+                <input class="form-control col-sm-6" type="date" name="from" id="from" />
+                <input class="form-control col-sm-6" type="date" name="to" id="to" />
+                <select class="form-control col-sm-12" name="PostType">
+                    <option value="Всі">Всі</option>
+                    <option value="Психологічна">Психологічна</option>
+                    <option value="Військова">Військова</option>
+                    <option value="Адміністративна">Адміністративна</option>
+                    <option value="Інше">Інше</option>
+                </select>
+                <input class="col-sm-12 form-control m-1" type="text" placeholder="Пошук" name="search" />
+                <button type="submit" class="form-control col-sm-12 m-1">Шукати</button>
+          </form>
+    </div>
+    <div class="row">
+         <div col-sm-12>
+            <h2>Результати пошуку...</h2>
+         </div>
+        @foreach (var post in Model)
+        {
+            <div class="container col-md-12 background-white mt-2" style="border-radius:10px;">
+                        <div class="row col-md-12">
+                            <div class="col-md-12 p-1" style="background-color:powderblue;
+                                    border-radius:10px">
+                                    <p class="float-left">@post.CreationDate.ToLongDateString()  </p>
+                                    <a class="float-left" asp-controller="AccountManager" asp-action="UserPage" asp-route-Id="@post.User.Id">@post.User.UserName</a>
+                                    <a class="float-right" asp-controller="Posts" asp-action="details" asp-route-id="@post.Id" class="">Читати</a>
+                              </div>
+                    <div class="card-body" style="min-height: 220px; 
+                                    text-justify: distribute;
+                                    max-height:220px;overflow:hidden;
+                                    text-wrap:wrap;">
+                                <h5 class="card-title card-post-text">@post.Title</h5>
+                                <p class="card-text card-post-text">@post.Description</p>
+                         </div>
+                    <div class="col-md-12 p-1" style="border-radius:10px;">
+                                <i class="float-left">Коментарів:@post.Comments.Count</i>
+                                <i class="float-right">@post.PostType</i>
+                            </div>
+
+                        </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+  document.getElementById("from").valueAsDate = new Date();
+    document.getElementById("to").valueAsDate = new Date();
+ </script>

@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using AwesomeNetwork.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager;
+
+@model AwesomeNetwork.ViewModels.Account.MainViewModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    
+}
+else
+{
+    <div class="row">
+        <div class="side">
+            <div class="center">
+                <h1>Сайт юридичної допомоги для військових</h1>
+            </div>
+            <img class="main-img" src="~/Images/Default/StartPage.jpg" />
+            <div>
+                <h3>
+                    Для повноцінного спілкування потрібно увійти, або зареєструватись!
+                </h3>
+            </div>
+        </div>
+
+        <div class="main">
+            <partial name="Login" model="@Model.LoginView" />
+            <partial name="Register" model="@Model.RegisterView"/>
+        </div>
+
+    </div>
+
+}

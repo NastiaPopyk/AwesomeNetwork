@@ -1,0 +1,49 @@
+﻿@model AwesomeNetwork.ViewModels.Account.UserViewModel; 
+
+<link rel="stylesheet" href="~/css/mypage.css">
+<div class="main-user-page">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootstrap snippets bootdey">
+        <div class="row">
+            <div class="profile-nav col-md-3">
+                <div class="panel">
+                    <div class="user-heading round">
+                        <a href="#">
+                            <img src="@Model.User.Image" alt="">
+                        </a>
+                        <h1>@Model.User.GetFullName()</h1>
+                        <p>@Model.User.UserRole</p>
+                    </div> 
+                </div>
+            </div>
+            <div class="profile-info col-md-9">
+                <div>
+                    <div class="row lined-block">
+                        @if (Model.Posts.Count > 0)
+                        {
+                            @foreach (var post in Model.Posts)
+                            {
+                                <div class="col-md-12">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <div class="card ">
+                                                <div class="card-header">
+                                                    @post.CreationDate.ToLongDateString();
+                                                            <a asp-controller="Posts" asp-action="details" asp-route-id="@post.Id" class="">Читати</a>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title card-post-text">@post.Title</h5>
+                                                    <p class="card-text card-post-text">@post.Description</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

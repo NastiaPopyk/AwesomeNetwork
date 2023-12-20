@@ -1,0 +1,70 @@
+﻿@model AwesomeNetwork.ViewModels.Account.UserEditViewModel;
+
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<div class="block-reg background-white">
+    <h3 class="center">Редагування профілю</h3>
+    <form class="frm" method="post" asp-controller="AccountManager"
+    asp-action="Update" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div class="mrgn">
+                <input readonly="true" asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mrgn">
+            <input asp-for="BirthDate" class="form-control date_control" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+            <input type="file" class="form-control bg-dark text-white border-white form-control-lg"
+                   name="Image" accept="image">
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="About" class="form-control" />
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="center">
+            <input class="btn_submit" type="submit" value="Зберегти" />
+        </div>
+    </form>
+</div>
